@@ -49,10 +49,10 @@ bank-simulation/
 ```
 
 ## Class Diagram
-![Class Diagram](diagrams/class_diagram.puml)
+![Class Diagram](https://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/Jala-University/bank-simulation/main/diagrams/class_diagram.puml)
 
 ## Sequence Diagram
-![Sequence Diagram](diagrams/sequence_diagram.puml)
+![Sequence Diagram](https://www.plantuml.com/plantuml/proxy?cache=no&src=https://raw.githubusercontent.com/Jala-University/bank-simulation/main/diagrams/sequence_diagram.puml)
 
 ## Installation
 1. Ensure JDK 21+ is installed
