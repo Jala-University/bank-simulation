@@ -1,0 +1,33 @@
+@startuml
+actor User
+participant BankSimulation
+participant QueueManager
+participant "ServicePoint\n(Cashier/Platform)" as ServicePoint
+database "PriorityQueues" as Queues
+
+User -> BankSimulation: Start simulation
+BankSimulation -> QueueManager: Create
+BankSimulation -> QueueManager: Add clients
+loop For each client
+    QueueManager -> Queues: Add to appropriate queue
+    Queues --> QueueManager: Confirmation
+    BankSimulation -> User: Print "client, en espera"
+end
+
+BankSimulation -> ServicePoint: Create service points
+loop For each service point
+    ServicePoint -> ServicePoint: Start thread
+end
+
+loop While clients exist
+    ServicePoint -> QueueManager: Request next client
+    QueueManager -> Queues: Retrieve client
+    Queues --> QueueManager: Return client
+    QueueManager --> ServicePoint: Return client
+    ServicePoint -> User: Print "client, en atención service"
+    ServicePoint -> ServicePoint: Sleep(client.serviceTime)
+    ServicePoint -> User: Print "client, servido"
+end
+
+BankSimulation -> User: Simulation complete
+@enduml

@@ -1,0 +1,61 @@
+@startuml
+skinparam classAttributeIconSize 0
+
+package "university.jala.bank_simulation.model" {
+  class Client {
+    - id: String
+    - serviceType: ServiceType
+    - priority: PriorityType
+    - serviceTime: int
+    - sequenceNumber: long
+    + compareTo(Client): int
+  }
+
+  enum ServiceType {
+    CASHIER
+    PLATFORM
+  }
+
+  enum PriorityType {
+    PREGNANT
+    ELDERLY
+    DISABLED
+    NORMAL
+  }
+}
+
+package "university.jala.bank_simulation.service" {
+  class QueueManager {
+    - cashierQueue: BlockingQueue<Client>
+    - platformQueue: BlockingQueue<Client>
+    + addClient(Client)
+    + getNextCashierClient(): Client
+    + getNextPlatformClient(): Client
+  }
+
+  class ServicePoint {
+    - name: String
+    - queueManager: QueueManager
+    - isCashier: boolean
+    - latch: CountDownLatch
+    + run()
+  }
+}
+
+class BankSimulation {
+  - CASHIERS: int
+  - PLATFORMS: int
+  - TOTAL_CLIENTS: int
+  + main(String[])
+}
+
+Client --> ServiceType
+Client --> PriorityType
+QueueManager o--> Client
+ServicePoint --> QueueManager
+ServicePoint --> Client
+BankSimulation --> QueueManager
+BankSimulation --> ServicePoint
+BankSimulation --> Client
+
+@enduml
